@@ -1,4 +1,4 @@
 # Socket-Sample
 # Cách sử dụng
-node server.js
-node client.js
+* node server.js
+* node client.js
