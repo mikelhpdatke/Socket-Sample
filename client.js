@@ -9,17 +9,29 @@ socket.on('greeting', function(data){
 socket.on('disconnect', function(){
     console.log("Da huy ket noi noi server");
 });
-var stdin = process.openStdin(); 
-stdin.setRawMode( true );  
-stdin.resume();
-stdin.setEncoding( 'utf8' );
-stdin.on( 'data', function( key ){
-    // ctrl-c ( end of text )
-    if ( key === '\u0003' ) {
-      process.exit();
-    }
-    // write the key to stdout all normal like
-    socket.emit('chat',key);
-    process.stdout.write( key );
-  });
+// var stdin = process.openStdin(); 
+// stdin.setRawMode( true );  
+// stdin.resume();
+// stdin.setEncoding( 'utf8' );
+// stdin.on( 'data', function( key ){
+//     // ctrl-c ( end of text )
+//     if ( key === '\u0003' ) {
+//         console.log('??');
+//       process.exit();
+//     }
+//     // write the key to stdout all normal like
+//     socket.emit('chat',key);
+//     // process.stdout.write( key );
+//   });
   
+var readline = require('readline');
+var rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+  terminal: false
+});
+
+rl.on('line', function(line){
+    // console.log(line);
+    socket.emit('chat', line);
+})

@@ -13,6 +13,7 @@ var http = require('http'),
     }),
 
     io = socketIO.listen(server);
+var gcd = require('gcd');
 
 io.set('match origin protocol', true);
 
@@ -34,7 +35,12 @@ d['9']='Chín';
 io.sockets.on('connection', (socket) => {
     console.log('Có một thiết bị vừa kết nối');
     socket.on('chat', function (data) {
-        socket.emit('greeting', d[data]);
+        console.log(data.split(' '));
+        let arr = data.split(' ');
+        let a = parseInt(arr[0], 10);
+        let b = parseInt(arr[1], 10);
+        console.log(a, b);
+        socket.emit('greeting', a*b/gcd(a,b));
     })
     socket.on('disconnect', () => {
         console.log('1 Thiết bị vừa ngắt kết nối');
